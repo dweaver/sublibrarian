@@ -5,10 +5,8 @@ from django.conf.urls.defaults import *
 # admin.autodiscover()
 
 urlpatterns = patterns('',
-    (r'^/', 'views.index'),
+    (r'^$', 'sublibrarian.views.index'),
     (r'^geo/', include('sublibrarian.geoticker.urls')),
-    # Example:
-    # (r'^gyr/', include('gyr.foo.urls')),
 
     # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 
     # to INSTALLED_APPS to enable admin documentation:
