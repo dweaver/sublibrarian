@@ -6,7 +6,7 @@ from django.conf.urls.defaults import *
 
 urlpatterns = patterns('',
     (r'^/', 'views.index'),
-    (r'^geo/', include('gyr.geoticker.urls')),
+    (r'^geo/', include('sublibrarian.geoticker.urls')),
     # Example:
     # (r'^gyr/', include('gyr.foo.urls')),
 
