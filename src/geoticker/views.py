@@ -11,8 +11,9 @@ from django import forms
 
 def index(request):
     l = [x for x in [1, 2, 3, 4, 5]]
-    
-    return HttpResponse('test, yay! %d' % l[0])
+    return render_to_response('testcanvas.html', 
+                              {'data': l},
+                              context_instance=RequestContext(request))
 
 #render_to_response('ouija/index.html',
 #        {'http_host': request.META['SERVER_NAME']}, 
