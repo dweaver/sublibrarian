@@ -6,7 +6,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
 import datetime
-import re 
+import re, os
 from django import forms
 
 def index(request):
