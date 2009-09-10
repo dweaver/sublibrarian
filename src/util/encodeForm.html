@@ -1,0 +1,201 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns="http://www.w3.org/1999/xhtml"><head>
+
+
+
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Polyline/polygon encoding utility</title>
+  <script src="encodeForm_files/maps" type="text/javascript">
+  </script><script src="encodeForm_files/main.js" type="text/javascript"></script><style type="text/css">@media print{.gmnoprint{display:none}}@media screen{.gmnoscreen{display:none}}</style>
+	<script src="encodeForm_files/PolylineEncoder.js" type="text/javascript"></script>
+  <script src="encodeForm_files/encodeForm.js" type="text/javascript"></script><script src="encodeForm_files/mod_jslinkermod_stats.js" charset="UTF-8" type="text/javascript"></script>
+<script src="encodeForm_files/mod_dragmod_ctrapimod_ovrmpc.js" charset="UTF-8" type="text/javascript"></script></head><body onload="load()" onunload="GUnload()">
+<h1>An encoding utility for polyline and polygon data</h1>
+<p>
+The form below can be used to encode complex latitude/longitude data
+for use in Google Maps.  If your data is stored in a KML file, you can
+paste the KML into the text area.  Alternatively,
+your data may be entered as a sequence of latitude/longitude pairs
+in the input text field.  The syntax for doing so is 
+<a href="#details">described below</a> and there are several 
+illustrative examples built in to the form.
+</p>
+<p>
+Please keep in mind that some web browsers are a little finicky when
+it comes to cutting and pasting large amounts of text.  Furthermore,
+this page depends on popup windows to display code and information.
+Sometimes code is in a window, even if you can't see it!  This page
+seems to work very well with Firefox on Windows and Mac OS X, although
+the display of large textual data seems worst with Mac Firefox.  The 
+page seems to work moderately well with Internet Explorer and Safari.
+</p>
+<h2>The form</h2>
+<div>
+<form id="EncodingForm" action="">
+<p>
+Input text: <br>
+<textarea rows="10" cols="45" name="InputText" wrap="off"></textarea>
+<br>
+Lat/lng order:
+<input checked="checked" name="latlngorder" onclick="setlatlng()" type="radio">
+lat/lng
+<input name="latlngorder" onclick="setlnglat()" type="radio">
+lng/lat
+</p>
+<p>
+<input value="Show Map" onclick="showMap()" type="button">
+<input value="Show Code" onclick="showCode()" type="button">
+<input value="Clear" onclick="formClear()" type="button">
+</p>
+<p>
+Set Example:
+<select name="example" onchange="setExample()">
+<option selected="selected" value="none">None</option>
+<option value="mitchell">Mt. Mitchell</option>
+<option value="pentagon">The Pentagon</option>
+<option value="carolinas">The Carolinas</option>
+<option value="monster">Monster sightings</option>
+<option value="directions">Directions</option>
+</select>
+<br>
+Example commentary:
+<input checked="checked" name="commentarySwitch" onclick="commentaryOn()" type="radio">
+On
+<input name="commentarySwitch" onclick="commentaryOff()" type="radio">
+Off
+</p>
+<p>
+verySmall: 
+<input size="10" name="verySmall" value="0.00001" type="text">
+(Set even smaller, say 0.000001, if 
+<a href="http://facstaff.unca.edu/mcmcclur/GoogleMaps/EncodePolyline/pitfalls.html">your polyline disappears sporadically</a>.)
+<br>
+numLevels: 
+<input size="10" name="numLevels" value="18" type="text">
+<br>
+zoomFactor: 
+<input size="10" name="zoomFactor" value="2" type="text">
+</p>
+</form>
+</div>
+
+<h2>The Map</h2>
+<div id="message">zoom level = 2<br>
+center = (27, -22)</div>
+<div id="map" style="width: 800px; height: 500px; position: relative; background-color: rgb(229, 227, 223);"><div style="overflow: hidden; position: absolute; left: 0px; top: 0px; width: 100%; height: 100%;"><div style="position: absolute; left: 0px; top: 0px; z-index: 0; cursor: -moz-grab;"><div style="position: absolute; left: 0px; top: 0px; display: none;"><div style="position: absolute; left: 0px; top: 0px; z-index: 0;"><img src="encodeForm_files/transparent.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none;"><img src="encodeForm_files/transparent.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none;"><img src="encodeForm_files/transparent.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none;"><img src="encodeForm_files/transparent.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none;"><img src="encodeForm_files/transparent.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none;"><img src="encodeForm_files/transparent.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none;"><img src="encodeForm_files/transparent.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none;"><img src="encodeForm_files/transparent.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none;"><img src="encodeForm_files/transparent.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none;"><img src="encodeForm_files/transparent.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none;"><img src="encodeForm_files/transparent.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none;"><img src="encodeForm_files/transparent.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none;"><img src="encodeForm_files/transparent.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none;"><img src="encodeForm_files/transparent.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none;"><img src="encodeForm_files/transparent.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none;"><img src="encodeForm_files/transparent.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none;"><img src="encodeForm_files/transparent.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none;"><img src="encodeForm_files/transparent.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none;"><img src="encodeForm_files/transparent.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none;"><img src="encodeForm_files/transparent.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none;"></div></div><div style="position: absolute; left: 0px; top: 0px;"><div style="position: absolute; left: 0px; top: 0px; z-index: 0;"><img src="encodeForm_files/vap_010.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: -305px; top: -182px; width: 256px; height: 256px; -moz-user-select: none;"><img src="encodeForm_files/vap_014.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: -305px; top: 74px; width: 256px; height: 256px; -moz-user-select: none;"><img src="encodeForm_files/vap_013.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: -305px; top: 330px; width: 256px; height: 256px; -moz-user-select: none;"><img src="encodeForm_files/vap_011.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: -305px; top: 586px; width: 256px; height: 256px; -moz-user-select: none;"><img src="encodeForm_files/vap.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: -49px; top: -182px; width: 256px; height: 256px; -moz-user-select: none;"><img src="encodeForm_files/vap_004.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: -49px; top: 74px; width: 256px; height: 256px; -moz-user-select: none;"><img src="encodeForm_files/vap_007.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: -49px; top: 330px; width: 256px; height: 256px; -moz-user-select: none;"><img src="encodeForm_files/vap_003.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: -49px; top: 586px; width: 256px; height: 256px; -moz-user-select: none;"><img src="encodeForm_files/vap_005.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 207px; top: -182px; width: 256px; height: 256px; -moz-user-select: none;"><img src="encodeForm_files/vap_008.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 207px; top: 74px; width: 256px; height: 256px; -moz-user-select: none;"><img src="encodeForm_files/vap_016.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 207px; top: 330px; width: 256px; height: 256px; -moz-user-select: none;"><img src="encodeForm_files/vap_006.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 207px; top: 586px; width: 256px; height: 256px; -moz-user-select: none;"><img src="encodeForm_files/vap_009.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 463px; top: -182px; width: 256px; height: 256px; -moz-user-select: none;"><img src="encodeForm_files/vap_015.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 463px; top: 74px; width: 256px; height: 256px; -moz-user-select: none;"><img src="encodeForm_files/vap_002.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 463px; top: 330px; width: 256px; height: 256px; -moz-user-select: none;"><img src="encodeForm_files/vap_012.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 463px; top: 586px; width: 256px; height: 256px; -moz-user-select: none;"><img src="encodeForm_files/vap_010.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 719px; top: -182px; width: 256px; height: 256px; -moz-user-select: none;"><img src="encodeForm_files/vap_014.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 719px; top: 74px; width: 256px; height: 256px; -moz-user-select: none;"><img src="encodeForm_files/vap_013.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 719px; top: 330px; width: 256px; height: 256px; -moz-user-select: none;"><img src="encodeForm_files/vap_011.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 719px; top: 586px; width: 256px; height: 256px; -moz-user-select: none;"></div></div><div style="position: absolute; left: 0px; top: 0px; z-index: 100;"></div><div style="position: absolute; left: 0px; top: 0px; z-index: 101;"></div><div style="position: absolute; left: 0px; top: 0px; z-index: 102;"></div><div style="position: absolute; left: 0px; top: 0px; z-index: 103;"></div><div style="position: absolute; left: 0px; top: 0px; z-index: 104; cursor: default;"></div><div style="position: absolute; left: 0px; top: 0px; z-index: 105;"></div><div style="position: absolute; left: 0px; top: 0px; z-index: 106;"></div><div style="position: absolute; left: 0px; top: 0px; z-index: 107; cursor: default;"></div></div></div><div id="logocontrol" style="-moz-user-select: none; z-index: 0; position: absolute; left: 2px; bottom: 2px;" class="gmnoprint"><a target="_blank" href="http://maps.google.com/maps?ll=27,-22&amp;spn=126.138735,281.25&amp;z=2&amp;key=ABQIAAAA8TnNJmMI5cG1uGgbzWfGDRRRm4UhWX_5qi7OjD-TylbMNFnxWhS_p5u4e5ekhBOuOogw9B4flB0zhA&amp;mapclient=jsapi&amp;oi=map_misc&amp;ct=api_logo" title="Click to see this area on Google Maps"><img src="encodeForm_files/poweredby.png" style="border: 0px none ; margin: 0px; padding: 0px; width: 62px; height: 30px; -moz-user-select: none; cursor: pointer;"></a></div><div dir="ltr" style="-moz-user-select: none; z-index: 0; position: absolute; right: 123px; bottom: 2px; color: black; font-family: Arial,sans-serif; font-size: 11px; white-space: nowrap; text-align: right;"><span></span><span>Map data ©2009  Europa Technologies - </span><a style="color: rgb(119, 119, 204);" target="_blank" href="http://www.google.com/intl/en_us/help/terms_maps.html">Terms of Use</a></div><div class="gmnoprint" style="overflow: hidden; width: 59px; height: 256px; -moz-user-select: none; z-index: 0; position: absolute; left: 7px; top: 7px; text-align: left;"><div style="position: absolute; left: 0px; top: 0px; width: 59px; height: 62px;"><div style="overflow: hidden; width: 59px; height: 62px; position: absolute; left: 0px; top: 0px;"><img src="encodeForm_files/mapcontrols2.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 0px; top: 0px; -moz-user-select: none;"></div><div log="pan_up" title="Pan up" style="position: absolute; left: 20px; top: 0px; width: 18px; height: 18px; cursor: pointer;"></div><div log="pan_lt" title="Pan left" style="position: absolute; left: 0px; top: 20px; width: 18px; height: 18px; cursor: pointer;"></div><div log="pan_rt" title="Pan right" style="position: absolute; left: 40px; top: 20px; width: 18px; height: 18px; cursor: pointer;"></div><div log="pan_down" title="Pan down" style="position: absolute; left: 20px; top: 40px; width: 18px; height: 18px; cursor: pointer;"></div><div log="center_result" title="Return to the last result" style="position: absolute; left: 20px; top: 20px; width: 18px; height: 18px; cursor: pointer;"></div></div><div id="lmcslider" style="overflow: hidden; position: absolute; left: 0px; top: 62px; width: 59px; height: 164px;"><div style="overflow: hidden; width: 59px; height: 292px;"><img src="encodeForm_files/mapcontrols2.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 0px; top: -62px; -moz-user-select: none;"></div><div title="Zoom In" style="position: absolute; left: 20px; top: 0px; width: 18px; height: 18px; cursor: pointer;"></div></div><div style="position: absolute; left: 0px; top: 226px; width: 59px; height: 30px; text-align: left;"><div style="overflow: hidden; width: 59px; height: 30px; position: absolute;"><img src="encodeForm_files/mapcontrols2.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 0px; top: -354px; -moz-user-select: none;"></div><div title="Zoom Out" style="position: absolute; left: 20px; top: 11px; width: 18px; height: 18px; cursor: pointer;"></div></div><div id="lmczb" style="position: absolute; left: 19px; top: 86px; width: 22px; height: 150px; cursor: pointer;"><div title="Drag to zoom" style="overflow: hidden; width: 22px; height: 14px; position: absolute; left: 0px; top: 120px; cursor: -moz-grab;"><img src="encodeForm_files/mapcontrols2.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 0px; top: -384px; -moz-user-select: none;"></div></div></div><div style="-moz-user-select: none; z-index: 0; position: absolute; right: 7px; top: 7px; color: black; font-family: Arial,sans-serif; font-size: small; width: 200px; height: 18px;" class="gmnoprint"><div title="Show street map" style="border: 1px solid black; position: absolute; background-color: white; text-align: center; width: 5em; cursor: pointer; right: 10.2em;"><div style="border-style: solid; border-color: rgb(52, 86, 132) rgb(108, 157, 223) rgb(108, 157, 223) rgb(52, 86, 132); border-width: 1px; font-size: 12px; font-weight: bold;">Map</div></div><div title="Show satellite imagery" style="border: 1px solid black; position: absolute; background-color: white; text-align: center; width: 5em; cursor: pointer; right: 5.1em;"><div style="border-style: solid; border-color: white rgb(176, 176, 176) rgb(176, 176, 176) white; border-width: 1px; font-size: 12px;">Satellite</div></div><div title="Show imagery with street names" style="border: 1px solid black; position: absolute; background-color: white; text-align: center; width: 5em; cursor: pointer; right: 0em;"><div style="border-style: solid; border-color: white rgb(176, 176, 176) rgb(176, 176, 176) white; border-width: 1px; font-size: 12px;">Hybrid</div></div></div><div id="scalecontrol" jstcache="0" class="gmnoprint" style="width: 96px; height: 26px; -moz-user-select: none; z-index: 0; position: absolute; left: 68px; bottom: 5px; color: black; font-family: Arial,sans-serif; font-size: 11px;"><div jstcache="0"><div jsinstance="0" jstcache="1" style="overflow: hidden; position: absolute; left: 0px; top: 0px; width: 4px; height: 26px;" jsselect="bars" jsvalues=".style.left:$this.left;.style.top:$this.top;.style.width:$this.width;.style.height:$this.height"><img src="encodeForm_files/mapcontrols3d5.png" jstcache="3" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 0px; top: -398px; width: 59px; height: 492px;" jsvalues=".style.left:$this.imgLeft;.style.top:$this.imgTop;.style.width:$this.imgWidth;.style.height:$this.imgHeight;.src:$this.imgSrc;"></div><div jsinstance="1" jstcache="1" style="overflow: hidden; position: absolute; left: 3px; top: 11px; width: 92px; height: 4px;" jsselect="bars" jsvalues=".style.left:$this.left;.style.top:$this.top;.style.width:$this.width;.style.height:$this.height"><img src="encodeForm_files/mapcontrols3d5.png" jstcache="3" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 0px; top: -424px; width: 92px; height: 492px;" jsvalues=".style.left:$this.imgLeft;.style.top:$this.imgTop;.style.width:$this.imgWidth;.style.height:$this.imgHeight;.src:$this.imgSrc;"></div><div jsinstance="2" jstcache="1" style="overflow: hidden; position: absolute; left: 95px; top: 11px; width: 1px; height: 4px;" jsselect="bars" jsvalues=".style.left:$this.left;.style.top:$this.top;.style.width:$this.width;.style.height:$this.height"><img src="encodeForm_files/mapcontrols3d5.png" jstcache="3" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: -412px; top: -398px; width: 59px; height: 492px;" jsvalues=".style.left:$this.imgLeft;.style.top:$this.imgTop;.style.width:$this.imgWidth;.style.height:$this.imgHeight;.src:$this.imgSrc;"></div><div jsinstance="3" jstcache="1" style="overflow: hidden; position: absolute; left: 92px; top: 0px; width: 4px; height: 12px;" jsselect="bars" jsvalues=".style.left:$this.left;.style.top:$this.top;.style.width:$this.width;.style.height:$this.height"><img src="encodeForm_files/mapcontrols3d5.png" jstcache="3" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: -4px; top: -398px; width: 59px; height: 492px;" jsvalues=".style.left:$this.imgLeft;.style.top:$this.imgTop;.style.width:$this.imgWidth;.style.height:$this.imgHeight;.src:$this.imgSrc;"></div><div jsinstance="*4" jstcache="1" style="overflow: hidden; position: absolute; left: 57px; top: 14px; width: 4px; height: 12px;" jsselect="bars" jsvalues=".style.left:$this.left;.style.top:$this.top;.style.width:$this.width;.style.height:$this.height"><img src="encodeForm_files/mapcontrols3d5.png" jstcache="3" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: -8px; top: -398px; width: 59px; height: 492px;" jsvalues=".style.left:$this.imgLeft;.style.top:$this.imgTop;.style.width:$this.imgWidth;.style.height:$this.imgHeight;.src:$this.imgSrc;"></div><div jsinstance="0" jstcache="2" style="position: absolute; left: 8px; bottom: 16px;" jsselect="scales" jscontent="$this.title" jsvalues=".style.left:$this.left;.style.bottom:$this.bottom;.style.top:$this.top">2000 mi</div><div jsinstance="*1" jstcache="2" style="position: absolute; left: 8px; top: 15px;" jsselect="scales" jscontent="$this.title" jsvalues=".style.left:$this.left;.style.bottom:$this.bottom;.style.top:$this.top">2000 km</div></div></div><div id="map_overview" style="-moz-user-select: none; z-index: 0; position: absolute; right: 0px; bottom: 0px;" class="gmnoprint"><div style="border-top: 1px solid rgb(151, 151, 151); border-left: 1px solid rgb(151, 151, 151); overflow: hidden; width: 120px; height: 120px; background-color: rgb(232, 236, 248); position: absolute; right: 0px; bottom: 0px;"><div style="border: 1px solid rgb(151, 151, 151); overflow: hidden; width: 111px; height: 111px; position: absolute; left: 7px; top: 7px; background-color: rgb(229, 227, 223);"><div style="overflow: hidden; position: absolute; left: 0px; top: 0px; width: 100%; height: 100%;"><div style="position: absolute; left: 0px; top: 0px; z-index: 0; cursor: -moz-grab;"><div style="position: absolute; left: 0px; top: 0px; display: none;"><div style="position: absolute; left: 0px; top: 0px; z-index: 0;"><img src="encodeForm_files/transparent.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none;"><img src="encodeForm_files/transparent.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none;"><img src="encodeForm_files/transparent.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none;"><img src="encodeForm_files/transparent.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none;"></div></div><div style="position: absolute; left: 0px; top: 0px; display: none;"><div style="position: absolute; left: 0px; top: 0px; z-index: 0;"><img src="encodeForm_files/transparent.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none;"><img src="encodeForm_files/transparent.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none;"><img src="encodeForm_files/transparent.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none;"><img src="encodeForm_files/transparent.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none;"></div></div><div style="position: absolute; left: 0px; top: 0px; z-index: 100;"></div><div style="position: absolute; left: 0px; top: 0px; z-index: 101;"></div><div style="position: absolute; left: 0px; top: 0px; z-index: 102;"></div><div style="position: absolute; left: 0px; top: 0px; z-index: 103;"></div><div style="position: absolute; left: 0px; top: 0px; z-index: 104; cursor: default;"></div><div style="position: absolute; left: 0px; top: 0px; z-index: 105;"></div><div style="position: absolute; left: 0px; top: 0px; z-index: 106;"></div><div style="position: absolute; left: 0px; top: 0px; z-index: 107; cursor: default;"></div></div></div></div></div><div style="overflow: hidden; width: 15px; height: 15px; cursor: pointer; position: absolute; right: 0px; bottom: 0px;"><img src="encodeForm_files/mapcontrols3d5.png" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute; left: 0px; top: -428px; -moz-user-select: none;"></div></div></div>
+
+<h2><a name="details">Details on the input</a></h2>
+<h3>KML</h3>
+<p>
+The KML support is fairly minimal.  The program reads KML
+LineString and Polygon elements and encodes them using
+GPolyline.fromEncoded and GPolygon.fromEncoded respectively.
+All LineStrings within the same Placemark element will be 
+grouped together and colored the same.  All other elements 
+are ignored.  This includes all style elements; thus, the 
+colors generated by this form do not correspond to 
+colors in the KML file.
+</p>
+
+<h3>Input Text</h3>
+<p>
+You can also enter data by pasting a sequence of latitude/longitude
+pairs into the "Input Text" field.  There should be one such pair
+per line and you can see a simple example input by selecting
+"Mt. Mitchell" from the "Set Examples" menu.
+</p>
+<p>
+Data is read from the "Input Text" field in a fairly forgiving way. 
+The latitude and longitude may be separated by either a comma, white
+space, or a comma and white space.  Blank lines are ignored.  Anything
+after the latitude and longitude (perhaps an elevation) on a line is
+ignored.  While the latitude and longitude are expected to be the
+first two elements on a line, the order in which they occur may be
+specified using the "Lat/lng order" radio buttons.
+</p>
+<p>
+There is also a syntax for entering a collection of polylines and 
+polygons.  This syntax is inspired by the
+<a href="http://www.soi.city.ac.uk/%7Ejwo/landserf/landserf220/doc/howto/fileformats.html#genericVector">
+generic vector</a> file format used by <a href="http://www.landserf.org/">
+LandSerf</a>, a freely available GIS program written in Java.  LandSerf
+can read a wide variety of formats, including ShapeFile, which can then
+be saved in generic vector format for use in the form here.  If, for example,
+you choose "The Pentagon" from the "Set Examples" menu, the following will 
+appear in the "Input Text" window.
+</p>
+<pre><code>
+A Pentagon
+-77.05788457660967,38.87253259892824,100
+-77.05465973756702,38.87291016281703,100
+-77.05315536854791,38.87053267794386,100
+-77.05552622493516,38.868757801256,100
+-77.05844056290393,38.86996206506943,100
+-77.05788457660967,38.87253259892824,100 
+
+A Pentagon
+-77.05668055019126,38.87154239798456,100
+-77.05542625960818,38.87167890344077,100
+-77.05485125901024,38.87076535397792,100
+-77.05577677433152,38.87008686581446,100
+-77.05691162017543,38.87054446963351,100
+-77.05668055019126,38.87154239798456,100
+
+L Pentagram
+-77.05668055019126,38.87154239798456,100
+-77.05485125901024,38.87076535397792,100
+-77.05691162017543,38.87054446963351,100
+-77.05542625960818,38.87167890344077,100
+-77.05577677433152,38.87008686581446,100
+-77.05668055019126,38.87154239798456,100
+
+L MyPath
+-77.05197 38.86809
+-77.05234 38.86819
+-77.05318 38.86808
+-77.05341 38.86759
+-77.05367 38.86746
+-77.05427 38.86753
+-77.05534 38.86788
+-77.05575 38.86824
+-77.0568 38.86873
+-77.05852 38.86953
+-77.05914 38.8697
+</code></pre>
+<p>
+Each line starting with an "A" (area) or "L" (line) indicates that 
+the following data describes a polygon or a polyline respectively.
+The last collection of non-white space characters in such a line
+is used as a descriptor; in particular, consecutive area elements 
+with the same descriptor are placed in the same encoded polygon,
+affecting the way they are rendered.  Consecutive line elements
+with the same descriptor will be colored the same.
+</p>
+<p>
+You can look at a somewhat
+more complicated example involving polygons by selecting "The
+Carolinas".  There are six polygons labeled North and two labeled
+South.  This data is not very detailed, but there is somewhat more
+detailed data in <a href="http://facstaff.unca.edu/mcmcclur/GoogleMaps/EncodePolyline/carolinas.txt">carolinas.txt</a> and
+there is mildly detailed data for all 50 states in 
+<a href="http://facstaff.unca.edu/mcmcclur/GoogleMaps/EncodePolyline/StateShapes.txt">StateShapes.txt</a>.  If you use these, 
+be sure to set the Lat/lng order to lng/lat.  Also, keep in mind
+that this page does the actual encoding of the lines, as well as
+the display.  A map with a pre-encoded line will load faster than
+the map here.  You can get a feel for this by using the "Show Code"
+button first, then generating the map.
+</p>
+<h3>Encoding Parameters</h3>
+<p>
+The form accepts three parameters: verySmall, numLevels, and zoomFactor.
+These are explained in further detail along with my description of the 
+encoding algorithm.  The default values should be fine for most purposes.
+</p>
+<hr>
+<script src="encodeForm_files/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-837639-1";
+urchinTracker();
+</script>
+<div style="display: none; position: absolute;" id="jsts"><div><div jstcache="0" id="sc_jstemplate"><div jstcache="1" style="overflow: hidden; position: absolute;" jsselect="bars" jsvalues=".style.left:$this.left;.style.top:$this.top;.style.width:$this.width;.style.height:$this.height"><img jstcache="3" style="border: 0px none ; margin: 0px; padding: 0px; position: absolute;" jsvalues=".style.left:$this.imgLeft;.style.top:$this.imgTop;.style.width:$this.imgWidth;.style.height:$this.imgHeight;.src:$this.imgSrc;"></div><div jstcache="2" style="position: absolute;" jsselect="scales" jscontent="$this.title" jsvalues=".style.left:$this.left;.style.bottom:$this.bottom;.style.top:$this.top"></div></div></div></div></body></html>
