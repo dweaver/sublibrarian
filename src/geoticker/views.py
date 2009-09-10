@@ -12,7 +12,7 @@ from django import forms
 def index(request):
     #l = [x for x in [1, 2, 3, 4, 5]]
     l = os.path.dirname(__file__)
-    return render_to_response('testcanvas.html', 
+    return render_to_response('googlemap.html', 
                               {'data': l},
                               context_instance=RequestContext(request))
 
