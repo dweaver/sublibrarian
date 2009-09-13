@@ -157,7 +157,7 @@ function getData() {
 					process(lineStrings, "path");
 				}
 				// Process the polygons lumping together polygons 
-				// with the same desriptor.
+				// with the same descriptor.
 				else if(inputTextArray[i] && inputTextArray[i].charAt(0) == "A") {
 					areaStrings = new Array(0);
 					descriptor = inputTextArray[i].match(/\S+(?=\n)/)[0];
