@@ -7,20 +7,12 @@
 // to enclose these functions in a single namespace.
 
 // Some global variables
-var pathData, polygonData, polygonDescriptors, pathResults, polygonResults;
+var pathData, polygonData, pathResults, polygonResults;
 var verySmall, numLevels, zoomFactor, order;
 var minLat, maxLat, minLng, maxLng;
 var inputText, stateChange;
 var map, commentary;
 
-function showJson() {
-	// First check the state of the form to find out how much work needs
-	// to be done.
-	if(getData()) { // if we find data, do the work
-		encodeData();
-		writeJson();
-	}
-}
 
 // Called by the "Show Code" button.
 function showCode() {
@@ -61,7 +53,6 @@ function getData() {
 	var thisCoordString, theseCoordStrings, lle, newCoordString;
 	pathData = new Array(0);
 	polygonData = new Array(0);
-	polygonDescriptors = new Array(0);
 	var rawPathData, rawPolygonData, thisPolygonData, point, points;
 	var placeData;
 	var h, i, j, k;
@@ -166,7 +157,7 @@ function getData() {
 					process(lineStrings, "path");
 				}
 				// Process the polygons lumping together polygons 
-				// with the same descriptor.
+				// with the same desriptor.
 				else if(inputTextArray[i] && inputTextArray[i].charAt(0) == "A") {
 					areaStrings = new Array(0);
 					descriptor = inputTextArray[i].match(/\S+(?=\n)/)[0];
@@ -176,7 +167,6 @@ function getData() {
 						j++; i++;
 					}
 					process(areaStrings, "area");
-					polygonDescriptors.push(descriptor);
 				}
 			}
 		}
@@ -293,10 +283,8 @@ function encodeData() {
  		polygonResults.push(thisPolygonResults);
  	}
 }
-
 function writePolygon(i, j) {
-	
-	result = "    { points: \"" + polygonResults[i][j].encodedPointsLiteral + "\",\n";
+	result = "    {points: \"" + polygonResults[i][j].encodedPointsLiteral + "\",\n";
 	result = result + "     levels: \"" + polygonResults[i][j].encodedLevels + "\",\n";
 	result = result + "     color: \"" + colorString(i) + "\",\n";
 	result = result + "     opacity: 0.7,\n";
@@ -306,36 +294,7 @@ function writePolygon(i, j) {
 	return result;
 }
 
-function writeJson() {
-	var w = open("","","scrollbars=yes,resizable=yes");
-	w.document.write("var countypolygons = {");
-	// note: writeJson only outputs polygons, and will not work with KML
-	// since we are not currently collecting descriptors in KML.
-	for(i=0; i<polygonData.length; i++) {
-		w.document.write("\"", polygonDescriptors[i], "\": {\n");
-		w.document.write(" polylines: [\n");
-		for(j=0; j<polygonData[i].length-1; j++) {
-			if (j != 0) {
-				w.document.write(", ")
-			}
-			w.document.write(writePolygon(i, j));
-		}
-		w.document.write(writePolygon(i, j), "], ");
-	    w.document.write("  fill: true,\n", "  color: \"" + colorString(i) + "\",\n", "  opacity: 0.4,\n  outline: true\n", "}");
-
-		if (i == polygonData.length - 1) {
-			w.document.write("\n");
-		}
-		else {
-			w.document.write(", \n");
-		}
-		
-	}
-	w.document.write("};");
-	w.document.close();
-}
-
-// The last step of the showCode function.
+//The last step of the showCode function.
 function writeCode() {
 	var w = open("","","scrollbars=yes,resizable=yes");
 	var i, j, latCenter, lngCenter;
@@ -349,7 +308,7 @@ function writeCode() {
 	w.document.write("var mapZoomLevel = map.getBoundsZoomLevel(bounds);\n");
 	w.document.write("var mapCenter = new GLatLng(" + latCenter + ", " + lngCenter + ")\n");
 	w.document.write("map.setCenter(mapCenter, mapZoomLevel);\n\n");
-
+	
 	for(i=0; i<polygonData.length; i++) {
 		w.document.write("var polygon", i+1, " = new GPolygon.fromEncoded({\n");
 		w.document.write("  polylines: [\n");
@@ -362,6 +321,7 @@ function writeCode() {
 		w.document.write("  fill: true,\n", "  color: \"" + colorString(i) + "\",\n", "  opacity: 0.4,\n  outline: true\n", "});\n");
 		w.document.write("map.addOverlay(polygon", i+1, ");\n\n");
 	}
+	
 	for(i=0; i<pathData.length; i++) {
 		for(j=0; j<pathData[i].length; j++) {
 			w.document.write("var polyline", i+1,"_",j+1, " = new GPolyline.fromEncoded({\n  color: \"" + colorString(i) + "\",\n  weight: 4,\n  opacity: 0.8,\n  points: \"");

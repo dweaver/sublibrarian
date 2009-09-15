@@ -1,0 +1,75 @@
+<!DOCTYPE html "-//W3C//DTD XHTML 1.0 Strict//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>Google Maps JavaScript API Example</title>
+    <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAsj6_GpuLRzFLZzAhMDDZ9RTSR4hu7PnnIX32RAAqs8bQnjniuBS7EDu-Pw4pm2UhKAtbmv85jD5wUg&sensor=false"
+            type="text/javascript"></script>
+    <script src="http://localhost:8000/media/mncounties.js"
+    		type="text/javascript"></script>
+    <script type="text/javascript">
+	
+    function initialize() {
+        if (GBrowserIsCompatible()) {
+      	  var map = new GMap2(document.getElementById("map_canvas"));
+      	  var sw = new GLatLng(43.499355999999999, -97.239209000000002);
+      	  var ne = new GLatLng(49.384357999999999, -89.489226000000002);
+      	  var bounds = new GLatLngBounds(sw, ne);
+      	  var mapZoomLevel = map.getBoundsZoomLevel(bounds);
+      	  var mapCenter = new GLatLng(46.441857, -93.3642175);
+      	  var gpolygons = {};
+      	  map.setCenter(mapCenter, mapZoomLevel);
+      	  var mykey;
+    
+          // instantiate GPolygon objects.
+  		  for (mykey in countypolygons) {
+  		    if (typeof countypolygons[mykey] !== 'function') {
+  		      gpolygons[mykey] = new GPolygon.fromEncoded(countypolygons[mykey]);
+  		      map.addOverlay(gpolygons[mykey]);
+  		    } 
+  		  }
+  	     var lastSelected = null;
+      	  GEvent.addListener(map, 'click', function(overlay, latlng) {
+      	    //var lat = latlng.lat();
+      	    //var lon = latlng.lng();
+            var mykey;
+
+      	  // instantiate GPolygon objects.
+      	  /*
+  		  for (mykey in gpolygons) {
+      		if (typeof gpolygons[mykey] !== 'function') {
+
+           	    if (overlay != gpolygons[mykey]) {
+	              	gpolygons[mykey].setStrokeStyle({"weight": 1});
+           	    }
+           	    else {
+           	        map.removeOverlay(overlay);
+           	    }
+  			 }			
+      	    }*/
+      	 if (null != lastSelected)
+      	 {
+          	 lastSelected.setStrokeStyle({"weight":2, "opacity":0.7});
+          	lastSelected.setFillStyle({"opacity": 0.4}); 
+          	 
+      	 }
+         if (null != overlay)
+         {
+			//overlay.setStrokeStyle({"color": "#ffffff", "opacity": 0.99, "weight":2});
+			//overlay.setFillStyle({"color": "#dddd00", "opacity": 0.3});     
+			overlay.setStrokeStyle({"weight":6, "opacity":1.0}); 
+			overlay.setFillStyle({"opacity": 0.7}); 
+			map.addOverlay(overlay);
+			lastSelected = overlay; 
+         }               
+      	  });
+    	    
+        }
+      }
+    </script>
+  </head>
+  <body onload="initialize()" onunload="GUnload()">
+    <div id="map_canvas" style="width: 500px; height: 300px"></div>
+  </body>
+</html>

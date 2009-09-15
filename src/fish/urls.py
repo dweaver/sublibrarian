@@ -1,16 +1,14 @@
 from django.conf.urls.defaults import *
-import os
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 # admin.autodiscover()
 
 urlpatterns = patterns('',
-    (r'^$', 'views.index'),
-    (r'^geo/', include('geoticker.urls')),
-    (r'^fish/', include('fish.urls')),
-    (r'^media/(?P<path>.*)$', 'django.views.static.serve',
-            {'document_root': os.path.join(os.path.dirname(__file__), 'media/')}),
+    (r'^$', 'fish.views.index'),
+    (r'^countypolygons/', 'fish.views.countypolygons'),
+#    (r'^media/(?P<path>.*)$', 'django.views.static.serve',
+#        {'document_root': os.path.join(os.path.dirname(__file__), 'media/')}),
 
     # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 
     # to INSTALLED_APPS to enable admin documentation:

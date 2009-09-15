@@ -7,7 +7,7 @@
 // to enclose these functions in a single namespace.
 
 // Some global variables
-var pathData, polygonData, polygonDescriptors, pathResults, polygonResults;
+var pathData, polygonData, descriptors, pathResults, polygonResults;
 var verySmall, numLevels, zoomFactor, order;
 var minLat, maxLat, minLng, maxLng;
 var inputText, stateChange;
@@ -16,11 +16,19 @@ var map, commentary;
 function showJson() {
 	// First check the state of the form to find out how much work needs
 	// to be done.
-	if(getData()) { // if we find data, do the work
-		encodeData();
-		writeJson();
+	if((inputText != document.getElementById("EncodingForm").InputText.value || "") ||
+	    stateChange) {
+		if(getData()) { // if we find data, do the work
+			encodeData();
+			writeJson();
+		}
 	}
+	// Otherwise, we can just write the code.
+	else if(inputText != "") {
+		writeJson();
+	}	
 }
+
 
 // Called by the "Show Code" button.
 function showCode() {
@@ -61,7 +69,6 @@ function getData() {
 	var thisCoordString, theseCoordStrings, lle, newCoordString;
 	pathData = new Array(0);
 	polygonData = new Array(0);
-	polygonDescriptors = new Array(0);
 	var rawPathData, rawPolygonData, thisPolygonData, point, points;
 	var placeData;
 	var h, i, j, k;
@@ -163,7 +170,7 @@ function getData() {
 						lineStrings.push(inputTextArray[j]);
 						j++; i++;
 					}
-					process(lineStrings, "path");
+					process(lineStrings, "path", descriptor);
 				}
 				// Process the polygons lumping together polygons 
 				// with the same descriptor.
@@ -175,8 +182,7 @@ function getData() {
 						areaStrings.push(inputTextArray[j]);
 						j++; i++;
 					}
-					process(areaStrings, "area");
-					polygonDescriptors.push(descriptor);
+					process(areaStrings, "area", descriptor);
 				}
 			}
 		}
@@ -187,7 +193,7 @@ function getData() {
 
 // The next two functions are called by the getData function during
 // the processing of the data from the Input text.
-function process(areaStrings, flag) {
+function process(areaStrings, flag, descriptor) {
 	var i, j, thisBoundary, thisBoundaryString, theseCoords, points;
 	thisBoundary = new Array(0);
 	for(i=0; i<areaStrings.length; i++) {
@@ -210,6 +216,7 @@ function process(areaStrings, flag) {
 	if(flag=="path") {
 		pathData.push(thisBoundary);
 	}
+	descriptors.push(descriptor)
 }
 // function processLine(pointString) {
 // 	var points = new Array(0);
@@ -294,45 +301,30 @@ function encodeData() {
  	}
 }
 
-function writePolygon(i, j) {
-	
-	result = "    { points: \"" + polygonResults[i][j].encodedPointsLiteral + "\",\n";
-	result = result + "     levels: \"" + polygonResults[i][j].encodedLevels + "\",\n";
-	result = result + "     color: \"" + colorString(i) + "\",\n";
-	result = result + "     opacity: 0.7,\n";
-	result = result + "     weight: 3,\n";
-	result = result + "     numLevels: " + numLevels + ",\n";
-	result = result + "     zoomFactor: " + zoomFactor + "}";
-	return result;
+function writePolyline(w, i, j) {
+	s = "    {points: \"", polygonResults[i][j].encodedPointsLiteral, "\",\n";
+	s += "     levels: \"", polygonResults[i][j].encodedLevels, "\",\n";
+	s += "     color: \"" + colorString(i) + "\",\n";
+	s += "     opacity: 0.7,\n";
+	s += "     weight: 3,\n";
+	s += "     numLevels: ", numLevels, ",\n";
+	s += "     zoomFactor: ", zoomFactor, "},\n";
+	w.document.write(s);
 }
 
 function writeJson() {
 	var w = open("","","scrollbars=yes,resizable=yes");
-	w.document.write("var countypolygons = {");
-	// note: writeJson only outputs polygons, and will not work with KML
-	// since we are not currently collecting descriptors in KML.
+	w.document.write("{");
 	for(i=0; i<polygonData.length; i++) {
-		w.document.write("\"", polygonDescriptors[i], "\": {\n");
-		w.document.write(" polylines: [\n");
+		w.document.write("'", descriptors[i], "': {\n");
+		w.document.write("  polylines: [\n");
 		for(j=0; j<polygonData[i].length-1; j++) {
-			if (j != 0) {
-				w.document.write(", ")
-			}
-			w.document.write(writePolygon(i, j));
+			writePolyline(w, i, j);
 		}
-		w.document.write(writePolygon(i, j), "], ");
-	    w.document.write("  fill: true,\n", "  color: \"" + colorString(i) + "\",\n", "  opacity: 0.4,\n  outline: true\n", "}");
-
-		if (i == polygonData.length - 1) {
-			w.document.write("\n");
-		}
-		else {
-			w.document.write(", \n");
-		}
-		
+		writePolyline(w, i, j);
 	}
-	w.document.write("};");
 	w.document.close();
+	w.document.write("}");
 }
 
 // The last step of the showCode function.
@@ -349,19 +341,35 @@ function writeCode() {
 	w.document.write("var mapZoomLevel = map.getBoundsZoomLevel(bounds);\n");
 	w.document.write("var mapCenter = new GLatLng(" + latCenter + ", " + lngCenter + ")\n");
 	w.document.write("map.setCenter(mapCenter, mapZoomLevel);\n\n");
-
+	w.document.write("var polygons = Array(0);\n\n");
+	
 	for(i=0; i<polygonData.length; i++) {
 		w.document.write("var polygon", i+1, " = new GPolygon.fromEncoded({\n");
 		w.document.write("  polylines: [\n");
 		for(j=0; j<polygonData[i].length-1; j++) {
-			w.document.write(writePolygon(i, j));
-			w.document.write(",\n");
+			s = "    {points: \"", polygonResults[i][j].encodedPointsLiteral, "\",\n";
+			s += "     levels: \"", polygonResults[i][j].encodedLevels, "\",\n";
+			s += "     color: \"" + colorString(i) + "\",\n";
+			s += "     opacity: 0.7,\n";
+			s += "     weight: 3,\n";
+			s += "     numLevels: ", numLevels, ",\n";
+			s += "     zoomFactor: ", zoomFactor, "},\n";
+			w.document.write(s);
 		}
-		w.document.write(writePolygon(i, j));		
+		s = "    {points: \"", polygonResults[i][j].encodedPointsLiteral, "\",\n";
+		s += "     levels: \"", polygonResults[i][j].encodedLevels, "\",\n";
+		s += "     color: \"" + colorString(i) + "\",\n";
+		s += "     opacity: 0.7,\n";
+		s += "     weight: 3,\n";
+		s += "     numLevels: ", numLevels, ",\n";
+		s += "     zoomFactor: ", zoomFactor, "},\n";
+		w.document.write(s);
 		w.document.write("],\n");
 		w.document.write("  fill: true,\n", "  color: \"" + colorString(i) + "\",\n", "  opacity: 0.4,\n  outline: true\n", "});\n");
-		w.document.write("map.addOverlay(polygon", i+1, ");\n\n");
+		w.document.write("map.addOverlay(polygon", i+1, ");\n");
+		w.document.write("polygons.push(polygon", i+1, ");\n\n")
 	}
+	
 	for(i=0; i<pathData.length; i++) {
 		for(j=0; j<pathData[i].length; j++) {
 			w.document.write("var polyline", i+1,"_",j+1, " = new GPolyline.fromEncoded({\n  color: \"" + colorString(i) + "\",\n  weight: 4,\n  opacity: 0.8,\n  points: \"");
