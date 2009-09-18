@@ -1,7 +1,7 @@
 from fish.models import State, County
 import csv
 
-def load_states(filename='states.csv'):
+def load_states(filename='data/states.csv'):
     #load states
     State.objects.all().delete()
     r = csv.reader(open(filename))
@@ -11,7 +11,7 @@ def load_states(filename='states.csv'):
         s = State(name=line[0], abbreviation=line[1])
         s.save()
     
-def load_counties(filename='counties.csv'):
+def load_counties(filename='data/counties.csv'):
     #load counties
     County.objects.all().delete()
     r = csv.reader(open(filename))

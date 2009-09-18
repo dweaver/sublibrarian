@@ -4,27 +4,16 @@ import crawl
 import urllib
 import os, re
 
-def CrawlAllLakes():
-    r = re.compile('lakes (.*).html')
-    for filename in os.listdir(os.curdir):
-        match = r.match(filename)
-        if match:
-            county = match.groups()[0]
-            print county
-            CrawlLakes(filename, county)
 
 def CrawlLakes(filename='www.dnr.state.mn.us otter tail lakes.html', prefix='ottertail'):
     # need to first save http://www.dnr.state.mn.us/lakefind/results.html?start=0&n=353
     # for county in question (get+post, unfortunately)
     s = open(filename, 'r').read()
-
     soup = BeautifulSoup(s)
     links = soup.findAll('a', href=re.compile('.*/lakefind/showreport.html.*'))
     urls = [link['href'] for link in links]
 
     lakenum = re.compile('.*\?downum\=(\d+)')
-    
-    print urls
     
     for i in range(len(urls)):
         match = lakenum.match(urls[i])
@@ -40,7 +29,33 @@ def CrawlLakes(filename='www.dnr.state.mn.us otter tail lakes.html', prefix='ott
                 f = open(outputfilename, 'w')
                 f.write(text)
                 f.close()
-            
+
+def GetLakeLocation(filename, prefix):
+    soup = BeautifulSoup(open(filename).read())
+    
+    links = soup.findAll('a', href=re.compile('.*/lakefind/showreport.html.*'))
+    urls = [link['href'] for link in links]
+    lakenum = re.compile('.*\?downum\=(\d+)')
+
+    xyre = re.compile('.*x=([\d\.]+)\&y=([\d\.]+).*')
+    
+    for i in range(len(urls)):
+        match = lakenum.match(urls[i])
+        if match:
+            num = match.groups()[0]
+            xylinks = links[i].parent.parent.findAll('a', href=xyre)
+            if xylinks and len(xylinks) > 0:
+                match = xyre.match(xylinks[0]['href'])
+                print ','.join([num, match.groups()[0], match.groups()[1]])
+    
+def CrawlAllLakes(fn=CrawlLakes, inputDir=os.path.join(os.curdir, 'data')):
+    r = re.compile('lakes (.*).html')
+    for filename in os.listdir(inputDir):
+        match = r.match(filename)
+        if match:
+            county = match.groups()[0]
+            fn(os.path.join(inputDir, filename), county)
+
 containsAlpha = re.compile('[a-z|A-Z]')
 def safeFloat(s):
     if containsAlpha.search(s):
@@ -51,13 +66,13 @@ def safeFloat(s):
 def csvString(s):
     return '"' + s.strip().replace('"', '""') + '"'
 
-def GetFish(outputfilename='fishing all mn.csv'):
+def GetFish(outputfilename='output.csv', inputDir=os.path.join(os.curdir, 'data')):
     filere = re.compile('lake(\w+?)(\d+)\.html')
     with open(outputfilename, 'w') as outputFile:
-        for filename in os.listdir(os.curdir):
+        for filename in os.listdir(inputDir):
             match = filere.match(filename)
             if match:
-                with open(filename) as inputFile:
+                with open(os.path.join(inputDir, filename)) as inputFile:
                     soup = BeautifulSoup(inputFile.read())
                     county = csvString(match.groups()[0])
                     lakeid = match.groups()[1]

@@ -6,7 +6,7 @@ from django.conf.urls.defaults import *
 
 urlpatterns = patterns('',
     (r'^$', 'fish.views.index'),
-    (r'^countypolygons/', 'fish.views.countypolygons'),
+    (r'^lakes', 'fish.views.lakes')
 #    (r'^media/(?P<path>.*)$', 'django.views.static.serve',
 #        {'document_root': os.path.join(os.path.dirname(__file__), 'media/')}),
 

@@ -1,3 +1,44 @@
+body, textarea {
+	font-family:arial,helvetica,sans-serif;
+	font-size:13px;
+}
+
+body {
+    color:#112211;
+    background-color:#f2efe9;
+}
+
+.infotitle {
+	font-size:123%;
+	font-weight:bold;
+}
+
+.iw .rev a:link {
+    color:#7777CC;
+}
+
+#map_canvas {
+	 float: left;
+	 border: 1px #818181 solid;
+	}
+	
+#query_box {
+	border: 20px #99b3cc solid;
+	width: 300px;
+	margin: 2px 0px 0px 442px;
+	padding: 40px;
+	}
+#arrow_box {
+	background-image: url('/media/images/arrow.png');
+	float: left;
+	position: relative;
+	width: 40px;
+	height: 82px;
+	margin: 0;
+	margin-top:48px;
+	padding: 0;
+	
+	}
 #splash {
 	border: 1px solid #223;
 	display: block;
