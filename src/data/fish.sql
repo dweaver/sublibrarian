@@ -16,6 +16,48 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: django_content_type; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE django_content_type (
+    id integer NOT NULL,
+    name character varying(100) NOT NULL,
+    app_label character varying(100) NOT NULL,
+    model character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.django_content_type OWNER TO postgres;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE django_content_type_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_content_type_id_seq OWNER TO postgres;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE django_content_type_id_seq OWNED BY django_content_type.id;
+
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('django_content_type_id_seq', 14, true);
+
+
+--
 -- Name: fish_county; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -275,6 +317,13 @@ SELECT pg_catalog.setval('fish_state_id_seq', 153, true);
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
+ALTER TABLE django_content_type ALTER COLUMN id SET DEFAULT nextval('django_content_type_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE fish_county ALTER COLUMN id SET DEFAULT nextval('fish_county_id_seq'::regclass);
 
 
@@ -311,6 +360,27 @@ ALTER TABLE fish_sample ALTER COLUMN id SET DEFAULT nextval('fish_sample_id_seq'
 --
 
 ALTER TABLE fish_state ALTER COLUMN id SET DEFAULT nextval('fish_state_id_seq'::regclass);
+
+
+--
+-- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY django_content_type (id, name, app_label, model) FROM stdin;
+1	permission	auth	permission
+2	group	auth	group
+3	user	auth	user
+4	message	auth	message
+5	content type	contenttypes	contenttype
+6	session	sessions	session
+7	site	sites	site
+8	state	fish	state
+10	county	fish	county
+11	lake	fish	lake
+12	fish	fish	fish
+13	gear	fish	gear
+14	sample	fish	sample
+\.
 
 
 --
@@ -43434,6 +43504,22 @@ COPY fish_state (id, name, abbreviation) FROM stdin;
 152	Wisconsin	WI
 153	Wyoming	WY
 \.
+
+
+--
+-- Name: django_content_type_app_label_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY django_content_type
+    ADD CONSTRAINT django_content_type_app_label_key UNIQUE (app_label, model);
+
+
+--
+-- Name: django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY django_content_type
+    ADD CONSTRAINT django_content_type_pkey PRIMARY KEY (id);
 
 
 --
