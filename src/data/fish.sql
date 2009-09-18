@@ -16,49 +16,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: django_content_type; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE django_content_type (
-    id integer NOT NULL,
-    name character varying(100) NOT NULL,
-    app_label character varying(100) NOT NULL,
-    model character varying(100) NOT NULL
-);
-
-
-ALTER TABLE public.django_content_type OWNER TO postgres;
-
---
--- Name: django_content_type_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE django_content_type_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.django_content_type_id_seq OWNER TO postgres;
-
---
--- Name: django_content_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE django_content_type_id_seq OWNED BY django_content_type.id;
-
-
---
--- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('django_content_type_id_seq', 14, true);
-
-
---
--- Name: fish_county; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: fish_county; Type: TABLE; Schema: public; Owner: weaver_gyr; Tablespace: 
 --
 
 CREATE TABLE fish_county (
@@ -69,10 +27,10 @@ CREATE TABLE fish_county (
 );
 
 
-ALTER TABLE public.fish_county OWNER TO postgres;
+ALTER TABLE public.fish_county OWNER TO weaver_gyr;
 
 --
--- Name: fish_county_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: fish_county_id_seq; Type: SEQUENCE; Schema: public; Owner: weaver_gyr
 --
 
 CREATE SEQUENCE fish_county_id_seq
@@ -83,24 +41,24 @@ CREATE SEQUENCE fish_county_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.fish_county_id_seq OWNER TO postgres;
+ALTER TABLE public.fish_county_id_seq OWNER TO weaver_gyr;
 
 --
--- Name: fish_county_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: fish_county_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: weaver_gyr
 --
 
 ALTER SEQUENCE fish_county_id_seq OWNED BY fish_county.id;
 
 
 --
--- Name: fish_county_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: fish_county_id_seq; Type: SEQUENCE SET; Schema: public; Owner: weaver_gyr
 --
 
 SELECT pg_catalog.setval('fish_county_id_seq', 9516, true);
 
 
 --
--- Name: fish_fish; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: fish_fish; Type: TABLE; Schema: public; Owner: weaver_gyr; Tablespace: 
 --
 
 CREATE TABLE fish_fish (
@@ -109,10 +67,10 @@ CREATE TABLE fish_fish (
 );
 
 
-ALTER TABLE public.fish_fish OWNER TO postgres;
+ALTER TABLE public.fish_fish OWNER TO weaver_gyr;
 
 --
--- Name: fish_fish_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: fish_fish_id_seq; Type: SEQUENCE; Schema: public; Owner: weaver_gyr
 --
 
 CREATE SEQUENCE fish_fish_id_seq
@@ -123,24 +81,24 @@ CREATE SEQUENCE fish_fish_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.fish_fish_id_seq OWNER TO postgres;
+ALTER TABLE public.fish_fish_id_seq OWNER TO weaver_gyr;
 
 --
--- Name: fish_fish_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: fish_fish_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: weaver_gyr
 --
 
 ALTER SEQUENCE fish_fish_id_seq OWNED BY fish_fish.id;
 
 
 --
--- Name: fish_fish_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: fish_fish_id_seq; Type: SEQUENCE SET; Schema: public; Owner: weaver_gyr
 --
 
 SELECT pg_catalog.setval('fish_fish_id_seq', 194, true);
 
 
 --
--- Name: fish_gear; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: fish_gear; Type: TABLE; Schema: public; Owner: weaver_gyr; Tablespace: 
 --
 
 CREATE TABLE fish_gear (
@@ -149,10 +107,10 @@ CREATE TABLE fish_gear (
 );
 
 
-ALTER TABLE public.fish_gear OWNER TO postgres;
+ALTER TABLE public.fish_gear OWNER TO weaver_gyr;
 
 --
--- Name: fish_gear_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: fish_gear_id_seq; Type: SEQUENCE; Schema: public; Owner: weaver_gyr
 --
 
 CREATE SEQUENCE fish_gear_id_seq
@@ -163,24 +121,24 @@ CREATE SEQUENCE fish_gear_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.fish_gear_id_seq OWNER TO postgres;
+ALTER TABLE public.fish_gear_id_seq OWNER TO weaver_gyr;
 
 --
--- Name: fish_gear_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: fish_gear_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: weaver_gyr
 --
 
 ALTER SEQUENCE fish_gear_id_seq OWNED BY fish_gear.id;
 
 
 --
--- Name: fish_gear_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: fish_gear_id_seq; Type: SEQUENCE SET; Schema: public; Owner: weaver_gyr
 --
 
 SELECT pg_catalog.setval('fish_gear_id_seq', 8, true);
 
 
 --
--- Name: fish_lake; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: fish_lake; Type: TABLE; Schema: public; Owner: weaver_gyr; Tablespace: 
 --
 
 CREATE TABLE fish_lake (
@@ -193,10 +151,10 @@ CREATE TABLE fish_lake (
 );
 
 
-ALTER TABLE public.fish_lake OWNER TO postgres;
+ALTER TABLE public.fish_lake OWNER TO weaver_gyr;
 
 --
--- Name: fish_lake_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: fish_lake_id_seq; Type: SEQUENCE; Schema: public; Owner: weaver_gyr
 --
 
 CREATE SEQUENCE fish_lake_id_seq
@@ -207,24 +165,24 @@ CREATE SEQUENCE fish_lake_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.fish_lake_id_seq OWNER TO postgres;
+ALTER TABLE public.fish_lake_id_seq OWNER TO weaver_gyr;
 
 --
--- Name: fish_lake_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: fish_lake_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: weaver_gyr
 --
 
 ALTER SEQUENCE fish_lake_id_seq OWNED BY fish_lake.id;
 
 
 --
--- Name: fish_lake_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: fish_lake_id_seq; Type: SEQUENCE SET; Schema: public; Owner: weaver_gyr
 --
 
 SELECT pg_catalog.setval('fish_lake_id_seq', 2981, true);
 
 
 --
--- Name: fish_sample; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: fish_sample; Type: TABLE; Schema: public; Owner: weaver_gyr; Tablespace: 
 --
 
 CREATE TABLE fish_sample (
@@ -242,10 +200,10 @@ CREATE TABLE fish_sample (
 );
 
 
-ALTER TABLE public.fish_sample OWNER TO postgres;
+ALTER TABLE public.fish_sample OWNER TO weaver_gyr;
 
 --
--- Name: fish_sample_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: fish_sample_id_seq; Type: SEQUENCE; Schema: public; Owner: weaver_gyr
 --
 
 CREATE SEQUENCE fish_sample_id_seq
@@ -256,24 +214,24 @@ CREATE SEQUENCE fish_sample_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.fish_sample_id_seq OWNER TO postgres;
+ALTER TABLE public.fish_sample_id_seq OWNER TO weaver_gyr;
 
 --
--- Name: fish_sample_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: fish_sample_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: weaver_gyr
 --
 
 ALTER SEQUENCE fish_sample_id_seq OWNED BY fish_sample.id;
 
 
 --
--- Name: fish_sample_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: fish_sample_id_seq; Type: SEQUENCE SET; Schema: public; Owner: weaver_gyr
 --
 
 SELECT pg_catalog.setval('fish_sample_id_seq', 36774, true);
 
 
 --
--- Name: fish_state; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: fish_state; Type: TABLE; Schema: public; Owner: weaver_gyr; Tablespace: 
 --
 
 CREATE TABLE fish_state (
@@ -283,10 +241,10 @@ CREATE TABLE fish_state (
 );
 
 
-ALTER TABLE public.fish_state OWNER TO postgres;
+ALTER TABLE public.fish_state OWNER TO weaver_gyr;
 
 --
--- Name: fish_state_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: fish_state_id_seq; Type: SEQUENCE; Schema: public; Owner: weaver_gyr
 --
 
 CREATE SEQUENCE fish_state_id_seq
@@ -297,94 +255,66 @@ CREATE SEQUENCE fish_state_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.fish_state_id_seq OWNER TO postgres;
+ALTER TABLE public.fish_state_id_seq OWNER TO weaver_gyr;
 
 --
--- Name: fish_state_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: fish_state_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: weaver_gyr
 --
 
 ALTER SEQUENCE fish_state_id_seq OWNED BY fish_state.id;
 
 
 --
--- Name: fish_state_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: fish_state_id_seq; Type: SEQUENCE SET; Schema: public; Owner: weaver_gyr
 --
 
 SELECT pg_catalog.setval('fish_state_id_seq', 153, true);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE django_content_type ALTER COLUMN id SET DEFAULT nextval('django_content_type_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: id; Type: DEFAULT; Schema: public; Owner: weaver_gyr
 --
 
 ALTER TABLE fish_county ALTER COLUMN id SET DEFAULT nextval('fish_county_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: id; Type: DEFAULT; Schema: public; Owner: weaver_gyr
 --
 
 ALTER TABLE fish_fish ALTER COLUMN id SET DEFAULT nextval('fish_fish_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: id; Type: DEFAULT; Schema: public; Owner: weaver_gyr
 --
 
 ALTER TABLE fish_gear ALTER COLUMN id SET DEFAULT nextval('fish_gear_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: id; Type: DEFAULT; Schema: public; Owner: weaver_gyr
 --
 
 ALTER TABLE fish_lake ALTER COLUMN id SET DEFAULT nextval('fish_lake_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: id; Type: DEFAULT; Schema: public; Owner: weaver_gyr
 --
 
 ALTER TABLE fish_sample ALTER COLUMN id SET DEFAULT nextval('fish_sample_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: id; Type: DEFAULT; Schema: public; Owner: weaver_gyr
 --
 
 ALTER TABLE fish_state ALTER COLUMN id SET DEFAULT nextval('fish_state_id_seq'::regclass);
 
 
 --
--- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY django_content_type (id, name, app_label, model) FROM stdin;
-1	permission	auth	permission
-2	group	auth	group
-3	user	auth	user
-4	message	auth	message
-5	content type	contenttypes	contenttype
-6	session	sessions	session
-7	site	sites	site
-8	state	fish	state
-10	county	fish	county
-11	lake	fish	lake
-12	fish	fish	fish
-13	gear	fish	gear
-14	sample	fish	sample
-\.
-
-
---
--- Data for Name: fish_county; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: fish_county; Type: TABLE DATA; Schema: public; Owner: weaver_gyr
 --
 
 COPY fish_county (id, fips_code, name, state_id) FROM stdin;
@@ -3564,7 +3494,7 @@ COPY fish_county (id, fips_code, name, state_id) FROM stdin;
 
 
 --
--- Data for Name: fish_fish; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: fish_fish; Type: TABLE DATA; Schema: public; Owner: weaver_gyr
 --
 
 COPY fish_fish (id, name) FROM stdin;
@@ -3667,7 +3597,7 @@ COPY fish_fish (id, name) FROM stdin;
 
 
 --
--- Data for Name: fish_gear; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: fish_gear; Type: TABLE DATA; Schema: public; Owner: weaver_gyr
 --
 
 COPY fish_gear (id, description) FROM stdin;
@@ -3677,7 +3607,7 @@ COPY fish_gear (id, description) FROM stdin;
 
 
 --
--- Data for Name: fish_lake; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: fish_lake; Type: TABLE DATA; Schema: public; Owner: weaver_gyr
 --
 
 COPY fish_lake (id, name, dnr_id, county_id, lat, lon) FROM stdin;
@@ -6666,7 +6596,7 @@ COPY fish_lake (id, name, dnr_id, county_id, lat, lon) FROM stdin;
 
 
 --
--- Data for Name: fish_sample; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: fish_sample; Type: TABLE DATA; Schema: public; Owner: weaver_gyr
 --
 
 COPY fish_sample (id, lake_id, fish_id, year, "gearUsed_id", "numPerNet", "numPerNetLow", "numPerNetHigh", weight, "weightLow", "weightHigh") FROM stdin;
@@ -43448,7 +43378,7 @@ COPY fish_sample (id, lake_id, fish_id, year, "gearUsed_id", "numPerNet", "numPe
 
 
 --
--- Data for Name: fish_state; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: fish_state; Type: TABLE DATA; Schema: public; Owner: weaver_gyr
 --
 
 COPY fish_state (id, name, abbreviation) FROM stdin;
@@ -43507,23 +43437,7 @@ COPY fish_state (id, name, abbreviation) FROM stdin;
 
 
 --
--- Name: django_content_type_app_label_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY django_content_type
-    ADD CONSTRAINT django_content_type_app_label_key UNIQUE (app_label, model);
-
-
---
--- Name: django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY django_content_type
-    ADD CONSTRAINT django_content_type_pkey PRIMARY KEY (id);
-
-
---
--- Name: fish_county_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: fish_county_pkey; Type: CONSTRAINT; Schema: public; Owner: weaver_gyr; Tablespace: 
 --
 
 ALTER TABLE ONLY fish_county
@@ -43531,7 +43445,7 @@ ALTER TABLE ONLY fish_county
 
 
 --
--- Name: fish_fish_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: fish_fish_pkey; Type: CONSTRAINT; Schema: public; Owner: weaver_gyr; Tablespace: 
 --
 
 ALTER TABLE ONLY fish_fish
@@ -43539,7 +43453,7 @@ ALTER TABLE ONLY fish_fish
 
 
 --
--- Name: fish_gear_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: fish_gear_pkey; Type: CONSTRAINT; Schema: public; Owner: weaver_gyr; Tablespace: 
 --
 
 ALTER TABLE ONLY fish_gear
@@ -43547,7 +43461,7 @@ ALTER TABLE ONLY fish_gear
 
 
 --
--- Name: fish_lake_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: fish_lake_pkey; Type: CONSTRAINT; Schema: public; Owner: weaver_gyr; Tablespace: 
 --
 
 ALTER TABLE ONLY fish_lake
@@ -43555,7 +43469,7 @@ ALTER TABLE ONLY fish_lake
 
 
 --
--- Name: fish_sample_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: fish_sample_pkey; Type: CONSTRAINT; Schema: public; Owner: weaver_gyr; Tablespace: 
 --
 
 ALTER TABLE ONLY fish_sample
@@ -43563,7 +43477,7 @@ ALTER TABLE ONLY fish_sample
 
 
 --
--- Name: fish_state_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: fish_state_pkey; Type: CONSTRAINT; Schema: public; Owner: weaver_gyr; Tablespace: 
 --
 
 ALTER TABLE ONLY fish_state
@@ -43571,42 +43485,42 @@ ALTER TABLE ONLY fish_state
 
 
 --
--- Name: fish_county_state_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+-- Name: fish_county_state_id; Type: INDEX; Schema: public; Owner: weaver_gyr; Tablespace: 
 --
 
 CREATE INDEX fish_county_state_id ON fish_county USING btree (state_id);
 
 
 --
--- Name: fish_lake_county_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+-- Name: fish_lake_county_id; Type: INDEX; Schema: public; Owner: weaver_gyr; Tablespace: 
 --
 
 CREATE INDEX fish_lake_county_id ON fish_lake USING btree (county_id);
 
 
 --
--- Name: fish_sample_fish_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+-- Name: fish_sample_fish_id; Type: INDEX; Schema: public; Owner: weaver_gyr; Tablespace: 
 --
 
 CREATE INDEX fish_sample_fish_id ON fish_sample USING btree (fish_id);
 
 
 --
--- Name: fish_sample_gearUsed_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+-- Name: fish_sample_gearUsed_id; Type: INDEX; Schema: public; Owner: weaver_gyr; Tablespace: 
 --
 
 CREATE INDEX "fish_sample_gearUsed_id" ON fish_sample USING btree ("gearUsed_id");
 
 
 --
--- Name: fish_sample_lake_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+-- Name: fish_sample_lake_id; Type: INDEX; Schema: public; Owner: weaver_gyr; Tablespace: 
 --
 
 CREATE INDEX fish_sample_lake_id ON fish_sample USING btree (lake_id);
 
 
 --
--- Name: fish_county_state_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: fish_county_state_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: weaver_gyr
 --
 
 ALTER TABLE ONLY fish_county
@@ -43614,7 +43528,7 @@ ALTER TABLE ONLY fish_county
 
 
 --
--- Name: fish_lake_county_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: fish_lake_county_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: weaver_gyr
 --
 
 ALTER TABLE ONLY fish_lake
@@ -43622,7 +43536,7 @@ ALTER TABLE ONLY fish_lake
 
 
 --
--- Name: fish_sample_fish_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: fish_sample_fish_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: weaver_gyr
 --
 
 ALTER TABLE ONLY fish_sample
@@ -43630,7 +43544,7 @@ ALTER TABLE ONLY fish_sample
 
 
 --
--- Name: fish_sample_gearUsed_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: fish_sample_gearUsed_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: weaver_gyr
 --
 
 ALTER TABLE ONLY fish_sample
@@ -43638,7 +43552,7 @@ ALTER TABLE ONLY fish_sample
 
 
 --
--- Name: fish_sample_lake_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: fish_sample_lake_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: weaver_gyr
 --
 
 ALTER TABLE ONLY fish_sample

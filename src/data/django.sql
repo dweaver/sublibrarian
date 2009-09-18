@@ -16,7 +16,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: django_content_type; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: django_content_type; Type: TABLE; Schema: public; Owner: weaver_gyr; Tablespace: 
 --
 
 CREATE TABLE django_content_type (
@@ -27,10 +27,10 @@ CREATE TABLE django_content_type (
 );
 
 
-ALTER TABLE public.django_content_type OWNER TO postgres;
+ALTER TABLE public.django_content_type OWNER TO weaver_gyr;
 
 --
--- Name: django_content_type_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: django_content_type_id_seq; Type: SEQUENCE; Schema: public; Owner: weaver_gyr
 --
 
 CREATE SEQUENCE django_content_type_id_seq
@@ -41,24 +41,24 @@ CREATE SEQUENCE django_content_type_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.django_content_type_id_seq OWNER TO postgres;
+ALTER TABLE public.django_content_type_id_seq OWNER TO weaver_gyr;
 
 --
--- Name: django_content_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: django_content_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: weaver_gyr
 --
 
 ALTER SEQUENCE django_content_type_id_seq OWNED BY django_content_type.id;
 
 
 --
--- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: weaver_gyr
 --
 
 SELECT pg_catalog.setval('django_content_type_id_seq', 14, true);
 
 
 --
--- Name: django_session; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: django_session; Type: TABLE; Schema: public; Owner: weaver_gyr; Tablespace: 
 --
 
 CREATE TABLE django_session (
@@ -68,10 +68,10 @@ CREATE TABLE django_session (
 );
 
 
-ALTER TABLE public.django_session OWNER TO postgres;
+ALTER TABLE public.django_session OWNER TO weaver_gyr;
 
 --
--- Name: django_site; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: django_site; Type: TABLE; Schema: public; Owner: weaver_gyr; Tablespace: 
 --
 
 CREATE TABLE django_site (
@@ -81,10 +81,10 @@ CREATE TABLE django_site (
 );
 
 
-ALTER TABLE public.django_site OWNER TO postgres;
+ALTER TABLE public.django_site OWNER TO weaver_gyr;
 
 --
--- Name: django_site_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: django_site_id_seq; Type: SEQUENCE; Schema: public; Owner: weaver_gyr
 --
 
 CREATE SEQUENCE django_site_id_seq
@@ -95,38 +95,38 @@ CREATE SEQUENCE django_site_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.django_site_id_seq OWNER TO postgres;
+ALTER TABLE public.django_site_id_seq OWNER TO weaver_gyr;
 
 --
--- Name: django_site_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: django_site_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: weaver_gyr
 --
 
 ALTER SEQUENCE django_site_id_seq OWNED BY django_site.id;
 
 
 --
--- Name: django_site_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: django_site_id_seq; Type: SEQUENCE SET; Schema: public; Owner: weaver_gyr
 --
 
 SELECT pg_catalog.setval('django_site_id_seq', 1, true);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: id; Type: DEFAULT; Schema: public; Owner: weaver_gyr
 --
 
 ALTER TABLE django_content_type ALTER COLUMN id SET DEFAULT nextval('django_content_type_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: id; Type: DEFAULT; Schema: public; Owner: weaver_gyr
 --
 
 ALTER TABLE django_site ALTER COLUMN id SET DEFAULT nextval('django_site_id_seq'::regclass);
 
 
 --
--- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: weaver_gyr
 --
 
 COPY django_content_type (id, name, app_label, model) FROM stdin;
@@ -147,7 +147,7 @@ COPY django_content_type (id, name, app_label, model) FROM stdin;
 
 
 --
--- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: weaver_gyr
 --
 
 COPY django_session (session_key, session_data, expire_date) FROM stdin;
@@ -155,7 +155,7 @@ COPY django_session (session_key, session_data, expire_date) FROM stdin;
 
 
 --
--- Data for Name: django_site; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: django_site; Type: TABLE DATA; Schema: public; Owner: weaver_gyr
 --
 
 COPY django_site (id, domain, name) FROM stdin;
@@ -164,7 +164,7 @@ COPY django_site (id, domain, name) FROM stdin;
 
 
 --
--- Name: django_content_type_app_label_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: django_content_type_app_label_key; Type: CONSTRAINT; Schema: public; Owner: weaver_gyr; Tablespace: 
 --
 
 ALTER TABLE ONLY django_content_type
@@ -172,7 +172,7 @@ ALTER TABLE ONLY django_content_type
 
 
 --
--- Name: django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: weaver_gyr; Tablespace: 
 --
 
 ALTER TABLE ONLY django_content_type
@@ -180,7 +180,7 @@ ALTER TABLE ONLY django_content_type
 
 
 --
--- Name: django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: weaver_gyr; Tablespace: 
 --
 
 ALTER TABLE ONLY django_session
@@ -188,7 +188,7 @@ ALTER TABLE ONLY django_session
 
 
 --
--- Name: django_site_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: django_site_pkey; Type: CONSTRAINT; Schema: public; Owner: weaver_gyr; Tablespace: 
 --
 
 ALTER TABLE ONLY django_site
