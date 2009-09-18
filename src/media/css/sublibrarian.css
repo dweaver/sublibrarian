@@ -13,8 +13,9 @@ body {
 	font-weight:bold;
 }
 
-.iw .rev a:link {
+.infolink {
     color:#7777CC;
+    float:right;
 }
 
 #map_canvas {
@@ -23,6 +24,8 @@ body {
 	}
 	
 #query_box {
+	position: relative;
+	top: 40px;
 	border: 20px #99b3cc solid;
 	width: 300px;
 	margin: 2px 0px 0px 442px;
@@ -35,7 +38,7 @@ body {
 	width: 40px;
 	height: 82px;
 	margin: 0;
-	margin-top:48px;
+	margin-top:90px;
 	padding: 0;
 	
 	}

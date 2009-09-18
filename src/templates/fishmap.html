@@ -91,22 +91,22 @@
 	    GEvent.addListener(marker, 'click', 
 	        function(point) {
 	        var rank = parseInt(i) + 1;
-	        var info = '<div class="infotitle">#' + rank + '/' + lakes["lakes"].length
-	        + ' Lake: ' + titleCaps(lakes["lakes"][i]["fields"]["name"])
+	        var info = '<div class="infotitle">#' + rank 
+	        + ' ' + titleCaps(lakes["lakes"][i]["fields"]["name"])
 	        + ' (' + lakes["samples"][i]["fields"]["year"]
 	        + ')</div>';
-	        info += "gear: " + lakes["gear"][i]["fields"]["description"] + "<br/>";
-            info += "caught: " + lakes["samples"][i]["fields"]["numPerNet"] + "<br/>";
+	        info += "Gear: " + lakes["gear"][i]["fields"]["description"] + "<br/>";
+            info += "Average caught: " + lakes["samples"][i]["fields"]["numPerNet"] + "<br/>";
             if ( lakes["samples"][i]["fields"]["weight"] > 0) {
-                info += "average weight: " + lakes["samples"][i]["fields"]["weight"] + " lbs<br/>";
+                info += "Average weight: " + lakes["samples"][i]["fields"]["weight"] + " lbs<br/>";
             } else {
-                info += "weight not recorded<br/>";
+                info += "Weight not recorded.<br/>";
             }
 
             //average weight: 123 lbs (normal range 123-124lbs)
 		    //caught: 1234 (normal range 1234-2345)
 		    
-	        info += '<a target="_blank" href="http://www.dnr.state.mn.us/lakefind/showreport.html?downum=' 
+	        info += '<a class="infolink" target="_blank" href="http://www.dnr.state.mn.us/lakefind/showreport.html?downum=' 
 	            + lakes["lakes"][i]["fields"]["dnr_id"] + '">source »</a>';                    
 	        map.openInfoWindowHtml(point, info); 
 	        }
